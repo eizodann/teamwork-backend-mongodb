@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const colors = require('colors');
-const connectDb = require('./config/db');
+const colors = require("colors");
+const connectDb = require("./config/db");
 dotenv.config({ path: "./config/config.env" });
 
 const articles = require("./routes/articles");
@@ -12,11 +12,13 @@ const connectDB = require("./config/db");
 const app = express();
 
 // connect to mongoDb
-connectDB()
+connectDB();
+
+app.use(express.json());
 
 //logging middleware in dev mode
-if(process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 // app.use(logger);
 
@@ -25,13 +27,16 @@ const PORT = process.env.PORT || 5000;
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 const server = app.listen(PORT, () =>
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}!`.yellow.bold)
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}!`.yellow
+      .bold
+  )
 );
 
 //handle unhandle promise rejection
-process.on('unhandledRejection', (err, promise) => {
-    console.log(err.message.red.underline);
+process.on("unhandledRejection", (err, promise) => {
+  console.log(err.message.red.underline);
 
-    // close server and exit process with failure
-    server.close(()=> process.exit(1))
-})
+  // close server and exit process with failure
+  server.close(() => process.exit(1));
+});
