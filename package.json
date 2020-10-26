@@ -1,0 +1,29 @@
+{
+  "name": "teamwork-backend-mongodb",
+  "version": "1.0.0",
+  "description": "teamwork bankend api",
+  "main": "server.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "start": "nodemon server",
+    "prod": "SET NODE_ENV=production && node server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eizodann/teamwork-backend-mongodb.git"
+  },
+  "author": "Nnadozie Ezeani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eizodann/teamwork-backend-mongodb/issues"
+  },
+  "homepage": "https://github.com/eizodann/teamwork-backend-mongodb#readme"
+}
