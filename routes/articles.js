@@ -6,7 +6,14 @@ const {
   updateArticle,
   deleteArticle,
 } = require("../controllers/articles");
+
+// include other resource routers related to articles
+const commentRouter = require("./comments");
+
 const router = express.Router();
+
+// reroute to other resource router
+router.use("/:articleId/comments", commentRouter);
 
 // router.get("/", (req, res) =>
 //   res.status(200).json({ sucess: true })

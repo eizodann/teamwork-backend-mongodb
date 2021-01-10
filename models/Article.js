@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const ArticleSchema = new mongoose.Schema({
   title: {
@@ -18,6 +19,14 @@ const ArticleSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  // testNo: Number,
+});
+
+// create resource slug from name
+ArticleSchema.pre("save", function (next) {
+  console.log("slugify ran", this.title);
+  this.slug = slugify(this.title, { lower: true });
+  next();
 });
 
 module.exports = mongoose.model("Article", ArticleSchema);
