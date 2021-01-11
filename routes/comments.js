@@ -1,16 +1,15 @@
 const express = require("express");
 const {
   getComments,
-  //   createArticles,
-  //   getArticle,
-  //   updateArticle,
-  //   deleteArticle,
+  createComment,
+  getComment,
+  updateComment,
+  deleteComment,
 } = require("../controllers/comments");
 const router = express.Router({ mergeParams: true });
 
-router.route("/").get(getComments);
-// .post(createArticles);
+router.route("/").get(getComments).post(createComment);
 
-// router.route("/:id").get(getArticle).put(updateArticle).delete(deleteArticle);
+router.route("/:id").get(getComment).put(updateComment).delete(deleteComment);
 
 module.exports = router;

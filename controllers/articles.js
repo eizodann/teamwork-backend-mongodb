@@ -17,7 +17,7 @@ exports.getArticles = async (req, res, next) => {
       (match) => `$${match}`
     );
 
-    let query = Article.find(JSON.parse(queryString));
+    let query = Article.find(JSON.parse(queryString)).populate("comments");
 
     // select field
     if (req.query.select) {
@@ -132,13 +132,20 @@ exports.updateArticle = async (req, res, next) => {
 
 exports.deleteArticle = async (req, res, next) => {
   try {
-    const article = await Article.findByIdAndDelete(req.params.id);
+    // hashed out as findByIdAndDelete wont trigger the middleware for ArticleSchema.pre("remove", ....)
+    // const article = await Article.findByIdAndDelete(req.params.id);
+
+    const article = await Article.findById(req.params.id);
+
     if (!article) {
       // return res.status(400).json({ sucess: false, error: `${req.params.id} does not exist` });
       return next(
         new ErrorResponse(`Article with id ${req.params.id} was not found`, 404)
       );
     }
+
+    article.remove();
+
     res.status(200).json({ sucess: true, data: {} });
   } catch (error) {
     console.log(error);
